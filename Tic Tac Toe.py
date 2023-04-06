@@ -1,14 +1,12 @@
 
-board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
-
-def print_board():
+def print_board(board):
     print(board[0] + '|' + board[1] + '|' + board[2])
     print('-+-+-')
     print(board[3] + '|' + board[4] + '|' + board[5])
     print('-+-+-')
     print(board[6] + '|' + board[7] + '|' + board[8])
 
-def check_win():
+def check_win(board):
     # Check rows
     if board[0] == board[1] == board[2] != ' ' or \
        board[3] == board[4] == board[5] != ' ' or \
@@ -26,12 +24,12 @@ def check_win():
     else:
         return False
 
-def play_game():
+def play_game(board):
     PlayerOne = input("Player 1 will be X. Name: ")
     PlayerTwo = input("Player 2's will be O. Name: ")
     Turn = PlayerOne
     while True:
-        print_board()
+        print_board(board)
         print("It's your turn, " + Turn + ".")
         move = int(input("Enter a number from 1-9 to make a move: ")) - 1
         if board[move] == ' ':
@@ -39,12 +37,12 @@ def play_game():
              board[move] = "X"
             if Turn == PlayerTwo:
              board[move] = "O"
-            if check_win():
-                print_board()
+            if check_win(board):
+                print_board(board)
                 print(Turn + " wins!")
                 break
             elif ' ' not in board:
-                print_board()
+                print_board(board)
                 print("It's a tie!")
                 break
             else:
@@ -52,4 +50,26 @@ def play_game():
         else:
             print("That square is already occupied. Please choose another.")
 
-play_game()
+    
+def main():
+    playAgain = True
+    while playAgain:
+        board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']     
+        play_game(board)
+        userOption = input("Play again? Enter Y/N: ")
+        valid = False
+        while not valid:
+            if userOption.upper() == "N" or userOption.upper() == "Y":
+                valid = True
+            else:
+                userOption = input("Enter Y or N: ")
+
+        if userOption == "N":
+            playAgain = False
+        else:
+            playAgain = True
+            
+    print("Thank you for playing :)")
+
+if __name__ == "__main__":
+    main()
